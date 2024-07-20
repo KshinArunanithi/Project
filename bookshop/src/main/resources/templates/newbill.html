@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Bill Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        #content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        select, input[type="number"], input[type="text"], input[type="submit"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e2e2e2;
+        }
+
+        .action-form {
+            display: inline;
+        }
+
+        .action-form input[type="submit"] {
+            background-color: #f44336;
+        }
+
+        .action-form input[type="submit"]:hover {
+            background-color: #e53935;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #4CAF50;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #4CAF50;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="content">
+    <h2>Select Book</h2>
+    <form action="/addtolist" method="post">
+        <label for="category">Select Category:</label>
+        <select name="category" id="category" required>
+            <option value="">Select a Category</option>
+            <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+        </select>
+
+        <label for="bookName">Select Book:</label>
+        <select name="bookName" id="bookName" required>
+            <option value="">Select a Book</option>
+            <option th:each="book : ${books}" th:value="${book.bookName}" th:text="${book.bookName}"></option>
+        </select>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" required>
+
+        <input type="submit" value="Add To List">
+    </form>
+
+    <form action="/storebilldata" method="post">
+        <h2>Selected Options</h2>
+        <table border="1">
+            <thead>
+            <tr>
+                <th style="display: none;">Book ID</th>
+                <th>Selected Book</th>
+                <th>Selected Category</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item, i : ${session.selectedItems}">
+                <td style="display: none;" th:text="${item.bookId}"></td>
+                <td th:text="${item.bookName}"></td>
+                <td th:text="${item.Category}"></td>
+                <td th:text="${item.quantity}"></td>
+                <td th:text="${item.price}"></td>
+                <td th:text="${item.totalPrice}"></td>
+                <td>
+                    <form class="action-form" th:action="@{/removerow}" method="post">
+                        <input type="hidden" name="index" th:value="${i.index}">
+                        <input type="submit" value="Remove">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <label for="customer">Customer:</label>
+        <input type="number" name="customer" required><br>
+        <input type="submit" value="Create Bill">
+        <a th:href="@{/seller}">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

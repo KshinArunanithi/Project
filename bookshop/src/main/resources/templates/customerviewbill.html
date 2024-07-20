@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 80%;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e2e2e2;
+        }
+
+        tfoot td {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Book List</h1>
+    
+    <!-- Display common information -->
+    <div class="info" th:if="${bills.size() > 0}">
+        <p>
+            <strong>Bill Number:</strong> <span th:text="${bills[0].billNo}"></span><br>
+            <strong>Customer Name:</strong> <span th:text="${bills[0].customerName}"></span><br>
+            <strong>Seller Name:</strong> <span th:text="${bills[0].sellerName}"></span><br>
+            <strong>Billing Date:</strong> <span th:text="${bills[0].billingDate}"></span>
+        </p>
+    </div>
+    
+    <!-- Display book details in a table -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Book Name</th>
+                <th>Order Copies</th>
+                <th>Book Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bill : ${bills}">
+                <td th:text="${bill.bookName}">Book Name</td>
+                <td th:text="${bill.orderCopies}">Order Copies</td>
+                <td th:text="${bill.price}">Book Price</td>
+                <td th:text="${bill.totalAmount}">Total Amount</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" style="text-align: right;">Grand Total:</td>
+                <td th:text="${grandTotal}"></td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>

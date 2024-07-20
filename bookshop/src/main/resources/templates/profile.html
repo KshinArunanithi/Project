@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .header {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .details p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .details span {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <section class="header">
+        <div class="details">
+            <p>Username: <span th:text="${user.username}"></span></p>
+            <p>Role: <span th:text="${rolename}"></span></p>
+            <p>Mobile: <span th:text="${user.mobile}"></span></p>
+        </div>
+    </section>
+</body>
+</html>

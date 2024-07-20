@@ -1,0 +1,60 @@
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .header {
+            background-color: #6495ED;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .details {
+            color: black;
+            margin-left: auto;
+            margin-right:10px;
+        }
+
+        .container {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .button-link {
+            display: inline-block;
+            padding: 15px 20px;
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        img {
+            height: 50px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <section class='header'>
+        <div class='details'>
+					<p>Username:username </p>
+					<p>Role:rolename </p>      
+
+        </div>
+		<a href='/profilepage/username'><img src='logo.jpg' alt='Logo'></a>
+    </section>
+    <div class='container'>
+        <a href='/allbook' class='button-link'>Book Details</a>
+        <a href='/allbill' class='button-link'> Bill Details</a>
+    </div>
+</body>
+</html>
